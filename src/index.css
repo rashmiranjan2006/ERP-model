@@ -1,0 +1,310 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AI Timetable Management System - Design System
+   Philosophy: Clean, intelligent, calm, and powerful
+   Inspired by: Notion + Google Calendar + SAP ERP
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Core Surfaces */
+    --background: 40 20% 98%;
+    --foreground: 222 20% 14%;
+    
+    /* Cards & Elevated Surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 222 20% 14%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 20% 14%;
+    
+    /* Primary - Deep Slate Blue (Professional) */
+    --primary: 222 47% 20%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary - Warm Gray */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 20% 24%;
+    
+    /* Muted */
+    --muted: 220 14% 94%;
+    --muted-foreground: 220 10% 46%;
+    
+    /* Accent - Subtle Blue */
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Semantic Colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    
+    /* Timetable Slot Colors */
+    --slot-theory: 217 91% 60%;
+    --slot-theory-bg: 217 91% 97%;
+    --slot-theory-border: 217 91% 85%;
+    
+    --slot-lab: 262 83% 58%;
+    --slot-lab-bg: 262 83% 97%;
+    --slot-lab-border: 262 83% 85%;
+    
+    --slot-free: 220 14% 92%;
+    --slot-free-border: 220 14% 85%;
+    
+    --slot-conflict: 0 84% 60%;
+    --slot-conflict-bg: 0 84% 97%;
+    
+    /* UI Elements */
+    --border: 220 14% 90%;
+    --input: 220 14% 90%;
+    --ring: 217 91% 60%;
+    --radius: 0.75rem;
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 10% 40%;
+    --sidebar-primary: 222 47% 20%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 91% 97%;
+    --sidebar-accent-foreground: 217 91% 40%;
+    --sidebar-border: 220 14% 92%;
+    --sidebar-ring: 217 91% 60%;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(220 14% 14% / 0.03);
+    --shadow-md: 0 4px 6px -1px hsl(220 14% 14% / 0.05), 0 2px 4px -2px hsl(220 14% 14% / 0.03);
+    --shadow-lg: 0 10px 15px -3px hsl(220 14% 14% / 0.06), 0 4px 6px -4px hsl(220 14% 14% / 0.03);
+    --shadow-card: 0 1px 3px 0 hsl(220 14% 14% / 0.04), 0 1px 2px -1px hsl(220 14% 14% / 0.03);
+    --shadow-elevated: 0 4px 12px 0 hsl(220 14% 14% / 0.08);
+  }
+
+  .dark {
+    --background: 222 20% 8%;
+    --foreground: 220 14% 96%;
+    
+    --card: 222 20% 12%;
+    --card-foreground: 220 14% 96%;
+    
+    --popover: 222 20% 12%;
+    --popover-foreground: 220 14% 96%;
+    
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 222 20% 16%;
+    --secondary-foreground: 220 14% 90%;
+    
+    --muted: 222 20% 18%;
+    --muted-foreground: 220 10% 60%;
+    
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    
+    --slot-theory: 217 91% 60%;
+    --slot-theory-bg: 217 91% 15%;
+    --slot-theory-border: 217 91% 35%;
+    
+    --slot-lab: 262 83% 58%;
+    --slot-lab-bg: 262 83% 15%;
+    --slot-lab-border: 262 83% 35%;
+    
+    --slot-free: 222 20% 18%;
+    --slot-free-border: 222 20% 25%;
+    
+    --slot-conflict: 0 72% 51%;
+    --slot-conflict-bg: 0 72% 15%;
+    
+    --border: 222 20% 20%;
+    --input: 222 20% 20%;
+    --ring: 217 91% 60%;
+    
+    --sidebar-background: 222 20% 10%;
+    --sidebar-foreground: 220 10% 70%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 20% 16%;
+    --sidebar-accent-foreground: 217 91% 70%;
+    --sidebar-border: 222 20% 18%;
+    --sidebar-ring: 217 91% 60%;
+    
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.2);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.25), 0 2px 4px -2px hsl(0 0% 0% / 0.2);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.3), 0 4px 6px -4px hsl(0 0% 0% / 0.2);
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.2);
+    --shadow-elevated: 0 4px 12px 0 hsl(0 0% 0% / 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Stat Cards */
+  .stat-card {
+    @apply bg-card rounded-xl p-6 border border-border transition-all duration-200;
+    box-shadow: var(--shadow-card);
+  }
+  
+  .stat-card:hover {
+    box-shadow: var(--shadow-elevated);
+    transform: translateY(-1px);
+  }
+  
+  /* Timetable Grid */
+  .timetable-grid {
+    @apply bg-card rounded-xl border border-border overflow-hidden;
+    box-shadow: var(--shadow-card);
+  }
+  
+  .timetable-header-cell {
+    @apply px-4 py-3 text-sm font-medium text-muted-foreground bg-muted/30 border-b border-r border-border text-center;
+  }
+  
+  .timetable-time-cell {
+    @apply px-4 py-3 text-sm font-medium text-muted-foreground bg-muted/30 border-r border-b border-border text-center min-w-[80px];
+  }
+  
+  .timetable-cell {
+    @apply p-1.5 border-r border-b border-border min-h-[80px] transition-colors duration-150;
+  }
+  
+  .timetable-cell:hover {
+    @apply bg-muted/20;
+  }
+  
+  /* Slot Cards */
+  .slot-card {
+    @apply rounded-lg p-2.5 h-full cursor-pointer transition-all duration-200 border;
+  }
+  
+  .slot-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .slot-theory {
+    @apply bg-slot-theory-bg border-slot-theory-border;
+  }
+  
+  .slot-lab {
+    @apply bg-slot-lab-bg border-slot-lab-border;
+  }
+  
+  .slot-free {
+    @apply bg-slot-free border-slot-free-border border-dashed;
+  }
+  
+  .slot-conflict {
+    @apply bg-slot-conflict-bg border-slot-conflict;
+  }
+  
+  /* Status Badges */
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .status-optimized {
+    @apply bg-success/10 text-success;
+  }
+  
+  .status-locked {
+    @apply bg-muted text-muted-foreground;
+  }
+  
+  .status-processing {
+    @apply bg-warning/10 text-warning;
+  }
+  
+  .status-conflict {
+    @apply bg-destructive/10 text-destructive;
+  }
+  
+  /* Navigation */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground transition-all duration-150;
+  }
+  
+  .nav-item:hover {
+    @apply bg-muted text-foreground;
+  }
+  
+  .nav-item.active {
+    @apply bg-sidebar-accent text-sidebar-accent-foreground;
+  }
+  
+  /* Filter Pills */
+  .filter-pill {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium bg-muted text-muted-foreground transition-colors duration-150 cursor-pointer;
+  }
+  
+  .filter-pill:hover {
+    @apply bg-muted/80;
+  }
+  
+  .filter-pill.active {
+    @apply bg-primary text-primary-foreground;
+  }
+}
+
+@layer utilities {
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+  
+  /* Smooth scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted)) transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+}
