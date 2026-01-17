@@ -169,11 +169,13 @@ export default function AdminControl() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Sections</SelectItem>
-                {sections?.map((section) => (
-                  <SelectItem key={section.id} value={section.id}>
-                    {section.name}
-                  </SelectItem>
-                ))}
+                {sections
+                  ?.filter((section) => Boolean(section?.id))
+                  .map((section) => (
+                    <SelectItem key={section.id} value={section.id}>
+                      {section.name}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
           </div>

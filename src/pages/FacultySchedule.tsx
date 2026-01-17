@@ -103,11 +103,13 @@ export default function FacultySchedule() {
                     <SelectValue placeholder="Select Faculty" />
                   </SelectTrigger>
                   <SelectContent>
-                    {faculty?.map((f) => (
-                      <SelectItem key={f.id} value={f.id}>
-                        {f.name}
-                      </SelectItem>
-                    ))}
+                    {faculty
+                      ?.filter((f) => Boolean(f?.id))
+                      .map((f) => (
+                        <SelectItem key={f.id} value={f.id}>
+                          {f.name}
+                        </SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
               ) : (
