@@ -158,14 +158,17 @@ export default function AdminControl() {
 
         {/* Section Filter */}
         <div className="flex flex-wrap items-center gap-4">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
             <span className="text-sm text-muted-foreground">Section:</span>
-            <Select value={selectedSection} onValueChange={setSelectedSection}>
+            <Select 
+              value={selectedSection || "all"} 
+              onValueChange={(val) => setSelectedSection(val === "all" ? "" : val)}
+            >
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="All Sections" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Sections</SelectItem>
+                <SelectItem value="all">All Sections</SelectItem>
                 {sections?.map((section) => (
                   <SelectItem key={section.id} value={section.id}>
                     {section.name}
