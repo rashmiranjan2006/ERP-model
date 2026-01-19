@@ -82,7 +82,10 @@ export function FilterBar({
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-3">
         {onClassChange && (
-          <Select value={selectedClass} onValueChange={onClassChange}>
+          <Select 
+            value={selectedClass || undefined} 
+            onValueChange={onClassChange}
+          >
             <SelectTrigger className="w-[160px] bg-muted/50 border-transparent">
               <GraduationCap className="w-4 h-4 mr-2 text-muted-foreground" />
               <SelectValue placeholder="Select Class" />
@@ -98,7 +101,10 @@ export function FilterBar({
         )}
 
         {onFacultyChange && (
-          <Select value={selectedFaculty} onValueChange={onFacultyChange}>
+          <Select 
+            value={selectedFaculty || undefined} 
+            onValueChange={onFacultyChange}
+          >
             <SelectTrigger className="w-[160px] bg-muted/50 border-transparent">
               <Users className="w-4 h-4 mr-2 text-muted-foreground" />
               <SelectValue placeholder="Faculty" />
@@ -114,7 +120,10 @@ export function FilterBar({
         )}
 
         {onRoomChange && (
-          <Select value={selectedRoom} onValueChange={onRoomChange}>
+          <Select 
+            value={selectedRoom || undefined} 
+            onValueChange={onRoomChange}
+          >
             <SelectTrigger className="w-[140px] bg-muted/50 border-transparent">
               <Building2 className="w-4 h-4 mr-2 text-muted-foreground" />
               <SelectValue placeholder="Room" />
