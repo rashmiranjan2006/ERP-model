@@ -1,4 +1,0 @@
-project_id = "gagxmsfkxjacjbprhjhx"
-
-[functions.generate-timetable]
-verify_jwt = false

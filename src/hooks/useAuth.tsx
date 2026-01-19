@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
+import { apiFetch } from '@/lib/api';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 
@@ -75,25 +75,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signUp = async (email: string, password: string, fullName: string, role: AppRole) => {
-    const redirectUrl = `${window.location.origin}/`;
-    
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: redirectUrl,
-        data: {
-          full_name: fullName,
-          role: role
-        }
-      }
-    });
-
-    if (error) {
+    try {
+      await apiFetch('/api/register', {
+        method: 'POST',
+        body: JSON.stringify({ email, password, full_name: fullName, role }),
+      });
+      // Refresh dashboard stats if function is available
+      if (window.__refreshDashboardStats) window.__refreshDashboardStats();
+      return { error: null };
+    } catch (error: any) {
       return { error };
     }
-
-    return { error: null };
   };
 
   const signIn = async (email: string, password: string) => {

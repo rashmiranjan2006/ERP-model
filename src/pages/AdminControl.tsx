@@ -42,6 +42,14 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function AdminControl() {
+  const [showFacultyModal, setShowFacultyModal] = useState(false);
+  const [showStudentModal, setShowStudentModal] = useState(false);
+  const [facultyForm, setFacultyForm] = useState({ name: "", id: "", email: "", department: "", about: "" });
+  const [studentForm, setStudentForm] = useState({ name: "", roll: "", email: "", department: "", section: "" });
+  const [facultyLoading, setFacultyLoading] = useState(false);
+  const [studentLoading, setStudentLoading] = useState(false);
+  const [facultyError, setFacultyError] = useState("");
+  const [studentError, setStudentError] = useState("");
   const [viewFilter, setViewFilter] = useState("week");
   const [selectedSection, setSelectedSection] = useState<string>("");
   const [selectedSlot, setSelectedSlot] = useState<{
@@ -105,6 +113,71 @@ export default function AdminControl() {
       subtitle="Manage timetable constraints and generation"
     >
       <div className="space-y-6 animate-fade-in">
+        {/* Add Faculty/Student Buttons */}
+        <div className="flex gap-4 mb-4">
+          <Button onClick={() => setShowFacultyModal(true)} variant="accent">Add Faculty</Button>
+          <Button onClick={() => setShowStudentModal(true)} variant="accent">Add Student</Button>
+        </div>
+
+        {/* Add Faculty Modal */}
+        <Dialog open={showFacultyModal} onOpenChange={setShowFacultyModal}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Add Faculty</DialogTitle>
+              <DialogDescription>Enter faculty details below.</DialogDescription>
+            </DialogHeader>
+            <form className="space-y-3" onSubmit={async e => {
+              e.preventDefault();
+              setFacultyLoading(true); setFacultyError("");
+              try {
+                await apiFetch("/api/faculty", { method: "POST", body: JSON.stringify(facultyForm) });
+                setShowFacultyModal(false);
+                setFacultyForm({ name: "", id: "", email: "", department: "", about: "" });
+              } catch (err: any) {
+                setFacultyError(err.message || "Failed to add faculty");
+              }
+              setFacultyLoading(false);
+            }}>
+              <input required className="input" placeholder="Name" value={facultyForm.name} onChange={e => setFacultyForm(f => ({ ...f, name: e.target.value }))} />
+              <input required className="input" placeholder="ID" value={facultyForm.id} onChange={e => setFacultyForm(f => ({ ...f, id: e.target.value }))} />
+              <input required className="input" placeholder="College Email" type="email" value={facultyForm.email} onChange={e => setFacultyForm(f => ({ ...f, email: e.target.value }))} />
+              <input required className="input" placeholder="Department" value={facultyForm.department} onChange={e => setFacultyForm(f => ({ ...f, department: e.target.value }))} />
+              <textarea className="input" placeholder="About" value={facultyForm.about} onChange={e => setFacultyForm(f => ({ ...f, about: e.target.value }))} />
+              {facultyError && <div className="text-red-500 text-sm">{facultyError}</div>}
+              <Button type="submit" disabled={facultyLoading}>{facultyLoading ? "Adding..." : "Add Faculty"}</Button>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        {/* Add Student Modal */}
+        <Dialog open={showStudentModal} onOpenChange={setShowStudentModal}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Add Student</DialogTitle>
+              <DialogDescription>Enter student details below.</DialogDescription>
+            </DialogHeader>
+            <form className="space-y-3" onSubmit={async e => {
+              e.preventDefault();
+              setStudentLoading(true); setStudentError("");
+              try {
+                await apiFetch("/api/students", { method: "POST", body: JSON.stringify(studentForm) });
+                setShowStudentModal(false);
+                setStudentForm({ name: "", roll: "", email: "", department: "", section: "" });
+              } catch (err: any) {
+                setStudentError(err.message || "Failed to add student");
+              }
+              setStudentLoading(false);
+            }}>
+              <input required className="input" placeholder="Name" value={studentForm.name} onChange={e => setStudentForm(f => ({ ...f, name: e.target.value }))} />
+              <input required className="input" placeholder="Roll" value={studentForm.roll} onChange={e => setStudentForm(f => ({ ...f, roll: e.target.value }))} />
+              <input required className="input" placeholder="College Email" type="email" value={studentForm.email} onChange={e => setStudentForm(f => ({ ...f, email: e.target.value }))} />
+              <input required className="input" placeholder="Department" value={studentForm.department} onChange={e => setStudentForm(f => ({ ...f, department: e.target.value }))} />
+              <input required className="input" placeholder="Section" value={studentForm.section} onChange={e => setStudentForm(f => ({ ...f, section: e.target.value }))} />
+              {studentError && <div className="text-red-500 text-sm">{studentError}</div>}
+              <Button type="submit" disabled={studentLoading}>{studentLoading ? "Adding..." : "Add Student"}</Button>
+            </form>
+          </DialogContent>
+        </Dialog>
         {/* Control Bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-card rounded-xl border border-border">
           <div className="flex items-center gap-4">

@@ -1,5 +1,7 @@
 import { AppLayout } from "@/components/layout/AppLayout";
 import { StatCard } from "@/components/dashboard/StatCard";
+import { useEffect, useState, useCallback } from "react";
+import { apiFetch } from "@/lib/api";
 import { StatusBadge } from "@/components/timetable/StatusBadge";
 import { TimetableGrid } from "@/components/timetable/TimetableGrid";
 import { sampleTimetableData } from "@/data/mockTimetable";
@@ -16,7 +18,16 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export default function Dashboard() {
+  const [stats, setStats] = useState({ students: 0, faculty: 0, classes: 0 });
+  const fetchStats = useCallback(() => {
+    apiFetch("/api/stats").then(setStats).catch(() => {});
+  }, []);
+  useEffect(() => {
+    fetchStats();
+    // Expose for global refresh (e.g., after registration)
+    window.__refreshDashboardStats = fetchStats;
+    return () => { delete window.__refreshDashboardStats; };
+  }, [fetchStats]);
   return (
     <AppLayout
       title="Dashboard"
@@ -30,11 +41,15 @@ export default function Dashboard() {
               Welcome back, Administrator
             </h2>
             <p className="text-muted-foreground max-w-xl">
-              Your timetables are optimized and ready. All 24 classes, 45 faculty members, and 12 rooms are scheduled without conflicts.
+              Your timetables are optimized and ready. All {stats.classes} classes, {stats.faculty} faculty members, and {stats.students} students are registered.
             </p>
           </div>
           <div className="flex items-center gap-3">
             <StatusBadge status="optimized" />
+            <Button className="gap-2" onClick={fetchStats} variant="outline" title="Refresh Stats">
+              <Sparkles className="w-4 h-4" />
+              Refresh Stats
+            </Button>
             <Button className="gap-2">
               <Sparkles className="w-4 h-4" />
               Generate Timetable
@@ -46,23 +61,22 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard
             title="Total Classes"
-            value={24}
-            subtitle="Across 4 departments"
+            value={stats.classes}
+            subtitle="Across all departments"
             icon={GraduationCap}
             variant="accent"
           />
           <StatCard
             title="Faculty Members"
-            value={45}
+            value={stats.faculty}
             subtitle="Full-time & visiting"
             icon={Users}
-            trend={{ value: 5, positive: true }}
           />
           <StatCard
-            title="Rooms & Labs"
-            value={12}
-            subtitle="92% utilization"
-            icon={Building2}
+            title="Registered Students"
+            value={stats.students}
+            subtitle="All years"
+            icon={Users}
           />
           <StatCard
             title="Conflicts Resolved"
